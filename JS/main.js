@@ -9,18 +9,22 @@
 // Far comparire gli indirizzi email solamente quando sono stati tutti generati.
 
 const myMailsArray = [];
-
-for(let i = 0; i < 10; i++){
-
-  axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
-  .then(function (randomMail) {
-    
-    myMailsArray.push(randomMail.data.response)
-    
-  }
-  );
-}
-  console.log(myMailsArray);
-    
-
-    
+console.log(myMailsArray);
+const myApp = Vue.createApp({
+  data() {
+    return {
+      myMailsArray,
+    };
+  },
+  mounted() {
+    for (let i = 0; i < 10; i++) {
+      axios
+        .get("https://flynn.boolean.careers/exercises/api/random/mail")
+        .then(function (response) {
+          myMailsArray.push(response.data);
+          // console.log(response.data.response);
+        });
+    }
+  },
+});
+myApp.mount("#app");
